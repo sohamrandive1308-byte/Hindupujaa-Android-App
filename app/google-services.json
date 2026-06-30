@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534080519919",
+    "project_id": "com-example-hindupujaa-11d79",
+    "storage_bucket": "com-example-hindupujaa-11d79.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534080519919:android:61b02b7c3afa45d1af251a",
+        "android_client_info": {
+          "package_name": "com.example.hindupujaa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAftoHQpGxq1l9ZwBwxa5LMMGEa661AyiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

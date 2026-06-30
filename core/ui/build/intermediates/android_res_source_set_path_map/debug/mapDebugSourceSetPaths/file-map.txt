@@ -1,0 +1,9 @@
+com.example.hindupujaa.core.ui-pngs-0 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/generated/res/pngs/debug
+com.example.hindupujaa.core.ui-updated_navigation_xml-1 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/generated/updated_navigation_xml/debug
+com.example.hindupujaa.core.ui-mergeDebugResources-2 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.example.hindupujaa.core.ui-mergeDebugResources-3 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.example.hindupujaa.core.ui-debug-4 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/intermediates/merged_res/debug/mergeDebugResources
+com.example.hindupujaa.core.ui-debug-5 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/build/intermediates/packaged_res/debug/packageDebugResources
+com.example.hindupujaa.core.ui-debug-6 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/src/debug/res
+com.example.hindupujaa.core.ui-main-7 /Users/sairanadive/AndroidStudioProjects/hindupujaa/core/ui/src/main/res
+gradleHome-0 /Users/sairanadive/.gradle

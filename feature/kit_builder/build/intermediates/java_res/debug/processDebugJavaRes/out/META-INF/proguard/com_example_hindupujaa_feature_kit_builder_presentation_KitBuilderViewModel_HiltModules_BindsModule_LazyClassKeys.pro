@@ -1,0 +1,1 @@
+-keep,allowobfuscation,allowshrinking class com.example.hindupujaa.feature.kit_builder.presentation.KitBuilderViewModel

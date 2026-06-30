@@ -1,0 +1,1 @@
+-keep,allowobfuscation,allowshrinking class com.example.hindupujaa.feature.puja_detail.presentation.PujaDetailViewModel

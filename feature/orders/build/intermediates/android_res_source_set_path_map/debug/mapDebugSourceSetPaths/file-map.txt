@@ -1,0 +1,9 @@
+com.example.hindupujaa.feature.orders-pngs-0 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/generated/res/pngs/debug
+com.example.hindupujaa.feature.orders-updated_navigation_xml-1 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/generated/updated_navigation_xml/debug
+com.example.hindupujaa.feature.orders-mergeDebugResources-2 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.example.hindupujaa.feature.orders-mergeDebugResources-3 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.example.hindupujaa.feature.orders-debug-4 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/intermediates/merged_res/debug/mergeDebugResources
+com.example.hindupujaa.feature.orders-debug-5 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/build/intermediates/packaged_res/debug/packageDebugResources
+com.example.hindupujaa.feature.orders-debug-6 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/src/debug/res
+com.example.hindupujaa.feature.orders-main-7 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/orders/src/main/res
+gradleHome-0 /Users/sairanadive/.gradle

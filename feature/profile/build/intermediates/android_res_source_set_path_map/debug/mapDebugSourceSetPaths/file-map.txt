@@ -1,0 +1,9 @@
+com.hindupujaa.feature.profile-pngs-0 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/generated/res/pngs/debug
+com.hindupujaa.feature.profile-updated_navigation_xml-1 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/generated/updated_navigation_xml/debug
+com.hindupujaa.feature.profile-mergeDebugResources-2 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.hindupujaa.feature.profile-mergeDebugResources-3 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.hindupujaa.feature.profile-debug-4 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/intermediates/merged_res/debug/mergeDebugResources
+com.hindupujaa.feature.profile-debug-5 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/build/intermediates/packaged_res/debug/packageDebugResources
+com.hindupujaa.feature.profile-debug-6 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/src/debug/res
+com.hindupujaa.feature.profile-main-7 /Users/sairanadive/AndroidStudioProjects/hindupujaa/feature/profile/src/main/res
+gradleHome-0 /Users/sairanadive/.gradle
