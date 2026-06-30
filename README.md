@@ -1,124 +1,75 @@
-# HinduPujaa — Divine Services Android Application 🌼
+# HinduPujaa - Divine Services App 🌼
 
-**HinduPujaa** is a production-grade, multi-module Android application developed using **Kotlin**, **Jetpack Compose**, and **Firebase**. It bridges ancient Vedic tradition with modern on-demand delivery technology.
+**Version 2.0.0 — Neon Postgres & Independent Auth Edition**
 
-> "Blinkit for Puja" — Real-time kit customization, online payments, and doorstep delivery within 24 hours.
-
----
-
-## 🎨 Design System: Claymorphism & Minimalism
-The app follows a modern **Claymorphic** design language, combining soft, rounded 3D surfaces with a clean, **Minimalist** layout.
-
-### Brand Identity
-- **Primary Color (Saffron):** `#FF9933` — Used for CTAs, FABs, and primary branding.
-- **Secondary Color (Dark Red):** `#780000` — Used for section headers and premium elements.
-- **Background (OffWhite):** `#FDFBF7` — Soft, warm spiritual base.
-- **Typography:**
-  - **Martel Bold:** Sacred hero text and screen titles.
-  - **Poppins:** Modern, highly readable body and interface text.
-
-### Visual Components
-- **ClayCards:** Soft-shadowed, highly rounded (28dp-32dp) containers for a "squishy" tactile feel.
-- **Gradients:** Saffron-to-Crimson linear gradients used in banners and splash screens.
-- **Animations:** 0.96x scale press effects, skeleton shimmer loaders, and smooth horizontal slide transitions.
+HinduPujaa is a production-grade Android application developed using **Kotlin**, **Jetpack Compose**, and a **RESTful Backend**. This version has been re-architected to remove Firebase dependencies, moving to a self-hosted API and Neon Postgres database for better cost control and scalability.
 
 ---
 
-## 📂 Project Architecture & Multi-Module Structure
-The project uses **MVVM + Clean Architecture** and is separated into feature-based modules for maximum scalability.
-
-- `:app` — Entry point, Dagger Hilt Application, and AppNavGraph.
-- `:core:ui` — Theme, Typography, and shared `ClayComponents`.
-- `:core:domain` — Pure Kotlin models and repository interfaces.
-- `:core:data` — Firebase implementations (Firestore, RTDB, Auth).
-- `:feature:home` — Discovery surface with "Trending 🔥" and "Categories".
-- `:feature:puja_detail` — Collapsible ritual info and Parallax Hero view.
-- `:feature:kit_builder` — Real-time customization engine with price animation.
-- `:feature:store` — Standalone store for individual puja essentials.
-- `:feature:auth` — SMS-based OTP Auth & Google Sign-In via Credential Manager.
-- `:feature:orders` — Real-time order tracking with status chips.
+## 🚀 Vision
+**"Blinkit for Puja"** - Curated kits, real-time customization, online payments, and doorstep delivery within 24 hours.
 
 ---
 
-## ⚙️ Application Workflow
-The app follows a strict production flow:
-1. **Splash (2s)**: Brand intro + Auth check.
-2. **Onboarding**: Value proposition (Delivery, Authenticity, Kits).
-3. **Authentication**: Verify real numbers via **Firebase SMS OTP** or **Google One Tap**.
-4. **Profile Setup**: Collect name and city (Pune/Nagpur).
-5. **Discovery (Home)**: High-density browsing of 13 primary pujas.
-6. **Selection**: Detailed ritual information (Backstory, Vidhi, Benefits).
-7. **Customization**: Toggle specific items in the kit (Included vs Rental).
-8. **Checkout**: Delivery details + Razorpay Payment Gateway.
-9. **Success**: Celebratory Lottie animation + WhatsApp tracking trigger.
+## 🛠 Tech Stack v2.0
+- **UI Framework:** Jetpack Compose (Material 3) with **Claymorphism v2**
+- **Architecture:** MVVM + Clean Architecture + Multi-Module
+- **Language:** Kotlin 2.0+
+- **Dependency Injection:** Hilt
+- **Backend:** Node.js/Express or Ktor (Self-hosted)
+- **Database:** Neon Serverless PostgreSQL
+- **Local Cache:** Room DB (Offline support)
+- **Authentication:** Custom Email/Pass (Bcrypt) + Google Sign-In + SMS OTP (2Factor.in)
+- **Storage:** Cloudflare R2 / Supabase Storage (S3 Compatible)
+- **Push:** OneSignal
+- **Payments:** Razorpay Android SDK
 
 ---
 
-## 🛠️ API & Integration Details
-
-### 1. Firebase Firestore (Primary Data)
-- **`/pujas`**: Stores the 13 ritual kits.
-- **`/store_products`**: Stores individual items for sale.
-- **`/users`**: User profiles and saved addresses.
-- **`/orders`**: Order history and real-time tracking status.
-
-### 2. Firebase Auth (Identity)
-- **Phone Auth**: Real SMS verification (+91 prefix enforced).
-- **Google Sign-In**: Credential Manager API integration.
-
-### 3. Razorpay SDK
-- **Environment**: Configured for `rzp_test` and `rzp_live`.
-- **Paise Logic**: Automatically multiplies total by 100 for API calls.
-- **Fix**: Built-in packaging excludes for `META-INF` to prevent namespace conflicts.
-
-### 4. WhatsApp Business API
-- **Endpoint**: `https://graph.facebook.com/v19.0/{phone_id}/messages`
-- **Owner Number**: `919175799251` (Configured in local.properties).
+## 📂 Project Structure
+- `:app`: Entry point, navigation, and Dagger Hilt setup.
+- `:core:ui`: Design system, themes (Saffron & Dark Red), **ClayComponents**, and **Custom Animations**.
+- `:core:domain`: Use-cases, repository interfaces, and relational data models.
+- `:core:data`: REST API integration (Ktor), Room Local DB, and repository implementations.
+- `:core:common`: Constants, extensions, and common utils.
+- `:feature:*`: Modularized features (Home, PujaDetail, KitBuilder, Store, Orders, Auth, Profile).
 
 ---
 
-## ✅ What's Done (Production Ready)
-- [x] **Redesigned UI**: Complete Claymorphic & Minimalist overhaul.
-- [x] **Real-time OTP**: SMS verification for real numbers working via Firebase.
-- [x] **Type-Safe Navigation**: Resolved all crashes when switching bottom bar tabs.
-- [x] **Auto-Seeding**: All 13 pujas and store products populated automatically on first run.
-- [x] **Accessibility**: `contentDescription` added to every image/icon.
-- [x] **Optimization**: Resource shrinking and minification enabled for release.
+## ✅ v2.0 Key Enhancements
+1. **REST Re-Architecture**: Ready to consume custom REST APIs instead of Firebase SDKs.
+2. **Offline Mode**: Room DB implemented to cache Pujas and Products for seamless browsing without internet.
+3. **Advanced UI**: Claymorphic cards with soft shadows and interactive bounce animations.
+4. **Independent Auth**: Support for Email, Google, and SMS OTP through our own backend.
+5. **Comprehensiveness**: All 13 pujas and 32 store products fully mapped to the new relational schema.
 
 ---
 
-## 🚧 Roadmap (To be completed on other device)
+## 🚧 Next Steps (Continuing the Project)
+If you are moving to another device, focus on these areas:
 
-### 🔑 Local Keys (`local.properties`)
-Create this file and add:
-```properties
-GOOGLE_MAPS_API_KEY=your_key_here
-RAZORPAY_KEY_ID_TEST=rzp_test_...
-WHATSAPP_API_TOKEN=your_token_here
-```
+### 1. Backend Setup
+- [ ] **Deploy API**: Host the Node.js or Ktor backend on Render/Railway.
+- [ ] **Neon DB**: Create a project at `neon.tech` and run the Prisma migrations provided in the SRS.
+- [ ] **Environment**: Update `API_BASE_URL` in `local.properties`.
 
-### 📍 Maps & Location
-- [ ] **Google Places**: Integrate the autocomplete picker into `CheckoutScreen`.
-- [ ] **Markers**: Show the delivery origin/destination on a map in `OrderDetail`.
+### 2. Assets & Media
+- [ ] **R2 Upload**: Upload high-res images to Cloudflare R2 and update the URLs in Postgres.
+- [ ] **Lottie**: Ensure `puja_bell_ring.json` and `diya_success.json` are in the `raw` resource folder.
 
-### 🛡️ Security
-- [ ] **Firestore Rules**: Deploy the rules from Section 3.7 of PRD.
-- [ ] **App Check**: Enable Play Integrity in Firebase Console.
-
-### 🍱 Assets
-- [ ] **Lottie Files**: Replace placeholder text with `.json` files in `res/raw`.
-- [ ] **Hero Images**: Replace placeholder URLs with actual high-res Firebase Storage paths.
+### 3. Maps & SMS
+- [ ] **API Keys**: Add `GOOGLE_MAPS_API_KEY` and `ONESIGNAL_APP_ID` to `local.properties`.
+- [ ] **OTP Provider**: Register with `2Factor.in` and configure the key on the backend.
 
 ---
 
 ## 🏃 How to Run
-1. **Gradle Sync**: Use Android Studio Koala (2024.1.2+).
-2. **Google Services**: Place your `google-services.json` in the `app/` directory.
-3. **SHA-1**: Run `./gradlew signingReport` and add the SHA-1 to your Firebase Console.
-4. **Build**: Run the `:app` module.
+1. **Sync Gradle**: Ensure Android Studio Koala is updated.
+2. **Local Properties**: Create `local.properties` with your respective API keys.
+3. **Build & Run**: Use the `:app` module.
 
 ---
 
 ## ॐ Shubh Puja ॐ
-Designed & Developed for **Sai Randive** (sairandivework@gmail.com)
-*Confidential © 2026 HinduPujaa*
+Developed by **Sai Randive** (sairandivework@gmail.com)
+ v2.0.0 | June 2026 | Confidential

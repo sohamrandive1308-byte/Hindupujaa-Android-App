@@ -1,6 +1,6 @@
 package com.example.hindupujaa.core.data.di
 
-import com.example.hindupujaa.core.data.repository.FirebasePujaRepository
+import com.example.hindupujaa.core.data.repository.rest.RestPujaRepository
 import com.example.hindupujaa.core.domain.repository.PujaRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.database.FirebaseDatabase
@@ -25,7 +25,7 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindPujaRepository(
-        firebasePujaRepository: FirebasePujaRepository
+        restPujaRepository: com.example.hindupujaa.core.data.repository.rest.RestPujaRepository
     ): PujaRepository
 
     @Binds

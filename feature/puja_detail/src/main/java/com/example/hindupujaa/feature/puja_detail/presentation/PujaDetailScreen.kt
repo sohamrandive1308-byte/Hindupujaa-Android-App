@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.graphics.graphicsLayer
 import coil3.compose.AsyncImage
 import com.example.hindupujaa.core.ui.components.ClayCard
 import com.example.hindupujaa.core.ui.components.ClayButton
@@ -99,11 +100,19 @@ fun PujaDetailScreen(
                     AsyncImage(
                         model = puja.heroImagePath,
                         contentDescription = "Puja Hero Image: ${puja.nameEn}",
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .graphicsLayer {
+                                translationY = scrollState.value * 0.5f
+                                alpha = 1f - (scrollState.value / 1000f).coerceIn(0f, 0.7f)
+                            },
                         contentScale = ContentScale.Crop
                     )
                     Box(modifier = Modifier.fillMaxSize().background(
-                        Brush.verticalGradient(listOf(Color.Transparent, MaterialTheme.colorScheme.background))
+                        Brush.verticalGradient(
+                            colors = listOf(Color.Transparent, MaterialTheme.colorScheme.background),
+                            startY = 400f
+                        )
                     ))
                     
                     Surface(

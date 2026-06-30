@@ -1,9 +1,10 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kapt)
 }
 
 android {
@@ -26,23 +27,19 @@ android {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
     
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.common)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.storage)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.config)
-    implementation(libs.firebase.database)
-
-    // Ktor (for WhatsApp API)
+    // Ktor
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.auth)
     implementation(libs.ktor.serialization.kotlinx.json)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // Hilt
     implementation(libs.hilt.android)

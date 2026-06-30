@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.example.hindupujaa.core.domain.model.KitItem
+import com.example.hindupujaa.core.ui.components.ClayCard
+import com.example.hindupujaa.core.ui.components.ClayButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,8 +44,12 @@ fun KitBuilderScreen(
             TopAppBar(
                 title = { 
                     Column {
-                        Text(uiState.puja?.nameEn ?: "Kit Builder", style = MaterialTheme.typography.titleMedium)
-                        Text("Customize your samagri", style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            text = uiState.puja?.nameEn ?: "Kit Builder", 
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Black
+                        )
+                        Text("Personalize your ritual samagri", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
                     }
                 },
                 navigationIcon = {
@@ -53,7 +59,10 @@ fun KitBuilderScreen(
                 },
                 actions = {
                     TextButton(onClick = { viewModel.selectAll(uiState.selectedCount < uiState.items.size) }) {
-                        Text(if (uiState.selectedCount < uiState.items.size) "Select All" else "Deselect All")
+                        Text(
+                            text = if (uiState.selectedCount < uiState.items.size) "Select All" else "Deselect All",
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             )
@@ -83,12 +92,13 @@ fun KitBuilderScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(padding)
+                    .background(MaterialTheme.colorScheme.background),
+                contentPadding = PaddingValues(20.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 if (includedItems.isNotEmpty()) {
-                    item { SectionHeader("Included Items") }
+                    item { SectionHeader("Included Samagri") }
                     items(includedItems) { item ->
                         KitItemRow(
                             item = item,
@@ -100,7 +110,7 @@ fun KitBuilderScreen(
 
                 if (rentalItems.isNotEmpty()) {
                     item { Spacer(modifier = Modifier.height(16.dp)) }
-                    item { SectionHeader("Rental Items (Return in 24h)") }
+                    item { SectionHeader("Rental Items (24h Return)") }
                     items(rentalItems) { item ->
                         KitItemRow(
                             item = item,
@@ -110,7 +120,7 @@ fun KitBuilderScreen(
                     }
                 }
                 
-                item { Spacer(modifier = Modifier.height(100.dp)) }
+                item { Spacer(modifier = Modifier.height(120.dp)) }
             }
         }
     }
@@ -121,9 +131,9 @@ fun SectionHeader(title: String) {
     Text(
         text = title,
         style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Black,
         color = MaterialTheme.colorScheme.secondary,
-        modifier = Modifier.padding(vertical = 8.dp)
+        modifier = Modifier.padding(bottom = 8.dp)
     )
 }
 
@@ -133,18 +143,16 @@ fun KitItemRow(
     isSelected: Boolean,
     onToggle: () -> Unit
 ) {
-    Card(
+    ClayCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onToggle() },
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f) 
-                             else MaterialTheme.colorScheme.surface
-        )
+        cornerRadius = 20.dp,
+        elevation = 4.dp,
+        containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.2f) 
+                         else Color.White
     ) {
         Row(
-            modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
@@ -153,36 +161,42 @@ fun KitItemRow(
                 colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary)
             )
             
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
             
             AsyncImage(
                 model = item.imagePath,
                 contentDescription = "Item Image: ${item.nameEn}",
                 modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape)
-                    .background(Color.LightGray),
+                    .size(56.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color.White),
                 contentScale = ContentScale.Crop
             )
             
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = item.nameEn, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
-                Text(text = item.nameMr, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+                Text(text = item.nameEn, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+                Text(text = item.description, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
                 if (item.isPerishable) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(12.dp), tint = Color.Red)
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("Perishable", fontSize = 10.sp, color = Color.Red)
+                    Surface(
+                        color = Color(0xFFFFEBEE),
+                        shape = RoundedCornerShape(4.dp),
+                        modifier = Modifier.padding(top = 4.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)) {
+                            Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(10.dp), tint = Color.Red)
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Fresh Item", fontSize = 8.sp, color = Color.Red, fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
             }
             
             Text(
                 text = "₹${item.price.toInt()}",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Black,
                 color = MaterialTheme.colorScheme.primary
             )
         }
@@ -200,36 +214,38 @@ fun KitSummaryBottomBar(
     
     Surface(
         tonalElevation = 8.dp,
-        shadowElevation = 8.dp,
+        shadowElevation = 24.dp,
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
+                .navigationBarsPadding()
+                .padding(24.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
-                Text(text = "$selectedCount items selected", style = MaterialTheme.typography.labelSmall)
+                Text(text = "$selectedCount Items", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
                 Text(
                     text = "₹$animatedPrice",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Black,
+                    color = MaterialTheme.colorScheme.primary,
+                    letterSpacing = (-0.5).sp
                 )
             }
             
-            Button(
+            ClayButton(
                 onClick = onProceed,
-                modifier = Modifier.height(50.dp).width(180.dp),
-                enabled = selectedCount > 0 && !isLoading,
-                shape = RoundedCornerShape(12.dp)
+                modifier = Modifier.width(180.dp),
+                enabled = selectedCount > 0 && !isLoading
             ) {
                 if (isLoading) {
                     CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp))
                 } else {
-                    Text("Checkout")
+                    Text("Checkout", fontWeight = FontWeight.Bold)
                 }
             }
         }

@@ -112,6 +112,12 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
 
+    // OneSignal
+    implementation(libs.onesignal)
+
+    // Sentry
+    implementation(libs.sentry.android)
+
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.ktor)

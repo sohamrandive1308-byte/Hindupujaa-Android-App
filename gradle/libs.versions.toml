@@ -15,9 +15,12 @@ hilt = "2.60"
 hiltNavigationCompose = "1.2.0"
 navigationCompose = "2.8.0"
 coil = "3.0.0-alpha06"
-ktor = "2.3.12"
+ktor = "3.0.1"
+room = "2.6.1"
+oneSignal = "5.1.8"
+sentry = "7.6.0"
 razorpay = "1.6.33"
-lottieCompose = "6.4.1"
+lottie = "6.4.1"
 googleFonts = "1.7.0"
 firebaseBom = "34.15.0"
 googleMaps = "20.0.0"
@@ -62,13 +65,26 @@ coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor", ve
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+# OneSignal
+onesignal = { group = "com.onesignal", name = "OneSignal", version.ref = "oneSignal" }
+
+# Sentry
+sentry-android = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
 
 # Razorpay
 razorpay-android = { group = "com.razorpay", name = "checkout", version.ref = "razorpay" }
 
 # Lottie
-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
 # Fonts
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFonts" }
