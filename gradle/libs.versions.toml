@@ -19,10 +19,12 @@ ktor = "2.3.12"
 razorpay = "1.6.33"
 lottieCompose = "6.4.1"
 googleFonts = "1.7.0"
-firebaseBom = "33.1.2"
+firebaseBom = "34.15.0"
 googleMaps = "20.0.0"
 mapsCompose = "6.1.2"
 ksp = "2.1.0-1.0.29"
+credentials = "1.3.0"
+googleid = "1.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -83,6 +85,9 @@ firebase-common = { group = "com.google.firebase", name = "firebase-common-ktx" 
 firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
 google-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googleMaps" }
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.3" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.8.1" }
 

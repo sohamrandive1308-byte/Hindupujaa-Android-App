@@ -1,9 +1,6 @@
 package com.example.hindupujaa.core.data.util
 
-import com.example.hindupujaa.core.domain.model.Category
-import com.example.hindupujaa.core.domain.model.KitItem
-import com.example.hindupujaa.core.domain.model.Puja
-import com.example.hindupujaa.core.domain.model.StoreProduct
+import com.example.hindupujaa.core.domain.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -287,12 +284,12 @@ class FirebaseSeeder @Inject constructor(
         firestore.collection("store_products").get().addOnSuccessListener { snapshot ->
             if (snapshot.isEmpty) {
                 val products = listOf(
-                    StoreProduct("p1", "Pure Cow Ghee 500g", "Consumables", "500g", 600.0, 550.0, 8, "PREMIUM", "products/ghee.png", 100, true, 1),
-                    StoreProduct("p2", "Sandalwood Incense Sticks", "Puja Items", "Pack of 50", 150.0, 120.0, 20, "BESTSELLER", "products/incense.png", 200, true, 2),
-                    StoreProduct("p3", "Brass Diya Large", "Puja Items", "1 Unit", 800.0, 699.0, 12, "POPULAR", "products/diya.png", 50, true, 3),
-                    StoreProduct("p4", "Rudraksha Mala (108 Beads)", "Rudraksha", "1 Unit", 1200.0, 999.0, 16, "RARE", "products/rudraksha.png", 30, true, 4),
-                    StoreProduct("p5", "Gangajal 1L", "Consumables", "1 Litre", 200.0, 180.0, 10, "VALUE", "products/gangajal.png", 150, true, 5),
-                    StoreProduct("p6", "Panchadhatu Ganesh Idol", "Puja Items", "1 Unit", 2500.0, 2100.0, 16, "PREMIUM", "products/ganesh.png", 20, true, 6)
+                    StoreProduct("p1", "Pure Cow Ghee 500g", "Consumables", "500g", 600.0, 550.0, 8, "PREMIUM", "products/ghee.png", 100, true, 1, "Pure cow ghee for puja and daily use."),
+                    StoreProduct("p2", "Sandalwood Incense Sticks", "Puja Items", "Pack of 50", 150.0, 120.0, 20, "BESTSELLER", "products/incense.png", 200, true, 2, "Fragrant sandalwood incense sticks."),
+                    StoreProduct("p3", "Brass Diya Large", "Puja Items", "1 Unit", 800.0, 699.0, 12, "POPULAR", "products/diya.png", 50, true, 3, "Handcrafted large brass diya."),
+                    StoreProduct("p4", "Rudraksha Mala (108 Beads)", "Rudraksha", "1 Unit", 1200.0, 999.0, 16, "RARE", "products/rudraksha.png", 30, true, 4, "Auspicious 108 beads Rudraksha mala."),
+                    StoreProduct("p5", "Gangajal 1L", "Consumables", "1 Litre", 200.0, 180.0, 10, "VALUE", "products/gangajal.png", 150, true, 5, "Purified Gangajal from Haridwar."),
+                    StoreProduct("p6", "Panchadhatu Ganesh Idol", "Puja Items", "1 Unit", 2500.0, 2100.0, 16, "PREMIUM", "products/ganesh.png", 20, true, 6, "Exquisite Panchadhatu Ganesh idol.")
                 )
                 products.forEach { firestore.collection("store_products").document(it.id).set(it) }
             }

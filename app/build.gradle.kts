@@ -106,6 +106,11 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.ai)
 
+    // Credentials
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.ktor)

@@ -4,7 +4,9 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
@@ -38,11 +40,11 @@ class AuthViewModel @Inject constructor(
 
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            signInWithPhoneAuthCredential(credential)
+            signInWithCredential(credential)
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            _uiState.value = _uiState.value.copy(isLoading = false, error = e.localizedMessage)
+            _uiState.value = _uiState.value.copy(isLoading = false, error = e.toString())
         }
 
         override fun onCodeSent(
@@ -83,17 +85,22 @@ class AuthViewModel @Inject constructor(
         val verificationId = uiState.value.verificationId ?: return
         val otp = uiState.value.otp
         val credential = PhoneAuthProvider.getCredential(verificationId, otp)
-        signInWithPhoneAuthCredential(credential)
+        signInWithCredential(credential)
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+    fun signInWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        signInWithCredential(credential)
+    }
+
+    private fun signInWithCredential(credential: AuthCredential) {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
             try {
                 auth.signInWithCredential(credential).await()
                 _uiState.value = _uiState.value.copy(isLoading = false, isLoggedIn = true)
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(isLoading = false, error = e.localizedMessage)
+                _uiState.value = _uiState.value.copy(isLoading = false, error = e.toString())
             }
         }
     }

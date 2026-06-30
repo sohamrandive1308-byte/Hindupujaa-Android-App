@@ -16,5 +16,6 @@ data class StoreProduct(
     @get:PropertyName("image_path") @set:PropertyName("image_path") var imagePath: String = "",
     @get:PropertyName("stock") @set:PropertyName("stock") var stock: Int = 0,
     @get:PropertyName("is_active") @set:PropertyName("is_active") var isActive: Boolean = true,
-    @get:PropertyName("sort_order") @set:PropertyName("sort_order") var sortOrder: Int = 0
+    @get:PropertyName("sort_order") @set:PropertyName("sort_order") var sortOrder: Int = 0,
+    @get:PropertyName("description") @set:PropertyName("description") var description: String = ""
 )
