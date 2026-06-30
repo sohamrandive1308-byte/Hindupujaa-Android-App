@@ -26,9 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.example.hindupujaa.core.domain.model.StoreProduct
-
+import com.example.hindupujaa.core.ui.components.ClayCard
+import com.example.hindupujaa.core.ui.components.ClayButton
 import com.example.hindupujaa.core.ui.components.ShimmerItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StoreScreen(
     onProductClick: (String) -> Unit,
@@ -38,30 +40,59 @@ fun StoreScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Hindu Store", fontWeight = FontWeight.Black) },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onCartClick,
                 containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = Color.White
+                contentColor = Color.White,
+                shape = RoundedCornerShape(20.dp)
             ) {
-                Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
+                BadgedBox(badge = {
+                    if (uiState.cartItemCount > 0) {
+                        Badge { Text(uiState.cartItemCount.toString()) }
+                    }
+                }) {
+                    Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
+                }
             }
         }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-            // Category Chips
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
             LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp, horizontal = 16.dp),
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(uiState.categories) { category ->
+                    val isSelected = uiState.selectedCategory == category
                     FilterChip(
-                        selected = uiState.selectedCategory == category,
+                        selected = isSelected,
                         onClick = { viewModel.selectCategory(category) },
                         label = { Text(category) },
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(12.dp),
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                            selectedLabelColor = MaterialTheme.colorScheme.primary
+                        ),
+                        border = FilterChipDefaults.filterChipBorder(
+                            enabled = true,
+                            selected = isSelected,
+                            borderColor = Color.Transparent,
+                            selectedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+                        )
                     )
                 }
             }
@@ -71,12 +102,9 @@ fun StoreScreen(
                     columns = GridCells.Fixed(2),
                     contentPadding = PaddingValues(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.fillMaxSize()
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(6) {
-                        ShimmerItem(modifier = Modifier.fillMaxWidth().height(200.dp))
-                    }
+                    items(6) { ShimmerItem(modifier = Modifier.height(220.dp)) }
                 }
             } else {
                 val filteredProducts = if (uiState.selectedCategory == "All") uiState.products 
@@ -85,8 +113,8 @@ fun StoreScreen(
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(filteredProducts) { product ->
@@ -108,27 +136,26 @@ fun ProductCard(
     onClick: (String) -> Unit,
     onAddClick: () -> Unit
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick(product.id) },
-        shape = RoundedCornerShape(12.dp)
+    ClayCard(
+        modifier = Modifier.fillMaxWidth().clickable { onClick(product.id) },
+        cornerRadius = 24.dp,
+        elevation = 4.dp
     ) {
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Box {
                 AsyncImage(
                     model = product.imagePath,
-                    contentDescription = product.nameEn,
+                    contentDescription = "Product Image: ${product.nameEn}",
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp),
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(16.dp)),
                     contentScale = ContentScale.Crop
                 )
                 if (product.badge.isNotEmpty()) {
                     Surface(
-                        modifier = Modifier.padding(8.dp).align(Alignment.TopEnd),
+                        modifier = Modifier.align(Alignment.TopEnd),
                         color = MaterialTheme.colorScheme.secondary,
-                        shape = RoundedCornerShape(4.dp)
+                        shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
                             text = product.badge,
@@ -141,35 +168,43 @@ fun ProductCard(
                 }
             }
             
-            Column(modifier = Modifier.padding(8.dp)) {
-                Text(text = product.nameEn, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold, maxLines = 1)
-                Text(text = product.unitLabel, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-                
-                Spacer(modifier = Modifier.height(4.dp))
-                
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "₹${product.price.toInt()}", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                    if (product.mrp > product.price) {
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "₹${product.mrp.toInt()}", 
-                            style = MaterialTheme.typography.labelSmall, 
-                            color = Color.Gray,
-                            textDecoration = TextDecoration.LineThrough
-                        )
-                    }
-                }
-                
-                Spacer(modifier = Modifier.height(8.dp))
-                
-                Button(
-                    onClick = onAddClick,
-                    modifier = Modifier.fillMaxWidth().height(32.dp),
-                    contentPadding = PaddingValues(0.dp)
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
-                    Text("ADD", fontSize = 12.sp)
-                }
+            Spacer(modifier = Modifier.height(12.dp))
+            
+            Text(
+                text = product.nameEn, 
+                style = MaterialTheme.typography.bodyMedium, 
+                fontWeight = FontWeight.Bold, 
+                maxLines = 1,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+            )
+            Text(
+                text = product.unitLabel, 
+                style = MaterialTheme.typography.labelSmall, 
+                color = Color.Gray
+            )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "₹${product.price.toInt()}", 
+                    style = MaterialTheme.typography.titleMedium, 
+                    fontWeight = FontWeight.Black, 
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            
+            Spacer(modifier = Modifier.height(12.dp))
+            
+            Button(
+                onClick = onAddClick,
+                modifier = Modifier.fillMaxWidth().height(36.dp),
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues(0.dp)
+            ) {
+                Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("ADD", fontSize = 11.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
