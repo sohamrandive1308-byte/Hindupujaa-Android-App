@@ -6,19 +6,19 @@ import com.example.hindupujaa.core.domain.model.StoreProduct
 
 @Entity(tableName = "store_products")
 data class StoreProductEntity(
-    @PrimaryKey val id: String,
-    val nameEn: String,
-    val category: String,
-    val unitLabel: String,
-    val mrp: Double,
-    val price: Double,
-    val discountPct: Int,
-    val badge: String,
-    val imagePath: String,
-    val stock: Int,
-    val isActive: Boolean,
-    val sortOrder: Int,
-    val description: String
+    @PrimaryKey val id: String = "",
+    val nameEn: String = "",
+    val category: String = "",
+    val unitLabel: String = "",
+    val mrp: Double = 0.0,
+    val price: Double = 0.0,
+    val discountPct: Int = 0,
+    val badge: String = "",
+    val imagePath: String = "",
+    val stock: Int = 0,
+    val isActive: Boolean = true,
+    val sortOrder: Int = 0,
+    val description: String = ""
 )
 
 fun StoreProductEntity.toDomain() = StoreProduct(

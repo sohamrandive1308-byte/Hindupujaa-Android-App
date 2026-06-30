@@ -19,6 +19,7 @@ ktor = "3.0.1"
 room = "2.6.1"
 oneSignal = "5.1.8"
 sentry = "7.6.0"
+securityCrypto = "1.1.0-alpha06"
 razorpay = "1.6.33"
 lottie = "6.4.1"
 googleFonts = "1.7.0"
@@ -79,6 +80,7 @@ onesignal = { group = "com.onesignal", name = "OneSignal", version.ref = "oneSig
 
 # Sentry
 sentry-android = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
+androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 
 # Razorpay
 razorpay-android = { group = "com.razorpay", name = "checkout", version.ref = "razorpay" }
@@ -91,14 +93,14 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
-firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
-firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-firebase-common = { group = "com.google.firebase", name = "firebase-common-ktx" }
-firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-config = { group = "com.google.firebase", name = "firebase-config" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-common = { group = "com.google.firebase", name = "firebase-common" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database" }
 google-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googleMaps" }
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
 androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }

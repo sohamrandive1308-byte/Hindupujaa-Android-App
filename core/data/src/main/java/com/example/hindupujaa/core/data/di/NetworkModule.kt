@@ -14,13 +14,17 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
+import io.ktor.client.plugins.auth.*
+import io.ktor.client.plugins.auth.providers.*
+import com.example.hindupujaa.core.common.util.TokenManager
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): HttpClient {
+    fun provideHttpClient(tokenManager: TokenManager): HttpClient {
         return HttpClient(OkHttp) {
             install(ContentNegotiation) {
                 json(Json {
@@ -32,8 +36,18 @@ object NetworkModule {
             install(Logging) {
                 level = LogLevel.INFO
             }
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        tokenManager.getAccessToken()?.let { BearerTokens(it, tokenManager.getRefreshToken() ?: "") }
+                    }
+                    refreshTokens {
+                        // Implement token refresh logic here
+                        null
+                    }
+                }
+            }
             defaultRequest {
-                // REPLACE with real base URL from Section 6.2
                 url("https://api.hindupujaa.com/")
             }
         }

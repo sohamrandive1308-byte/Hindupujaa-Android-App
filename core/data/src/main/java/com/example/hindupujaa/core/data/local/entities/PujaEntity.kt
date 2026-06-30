@@ -6,20 +6,20 @@ import com.example.hindupujaa.core.domain.model.Puja
 
 @Entity(tableName = "pujas")
 data class PujaEntity(
-    @PrimaryKey val id: String,
-    val nameEn: String,
-    val nameHi: String,
-    val slug: String,
-    val category: String,
-    val durationLabel: String,
-    val isTrending: Boolean,
-    val heroImagePath: String,
-    val thumbnailPath: String,
-    val backstory: String,
-    val benefits: List<String>,
-    val basePrice: Double,
-    val isActive: Boolean,
-    val sortOrder: Int
+    @PrimaryKey val id: String = "",
+    val nameEn: String = "",
+    val nameHi: String = "",
+    val slug: String = "",
+    val category: String = "",
+    val durationLabel: String = "",
+    val isTrending: Boolean = false,
+    val heroImagePath: String = "",
+    val thumbnailPath: String = "",
+    val backstory: String = "",
+    val benefits: List<String> = emptyList(),
+    val basePrice: Double = 0.0,
+    val isActive: Boolean = true,
+    val sortOrder: Int = 0
 )
 
 fun PujaEntity.toDomain() = Puja(

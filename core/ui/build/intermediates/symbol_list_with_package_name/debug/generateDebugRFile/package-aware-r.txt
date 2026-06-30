@@ -4,3 +4,4 @@ array com_google_android_gms_fonts_certs_dev
 array com_google_android_gms_fonts_certs_prod
 drawable hindupujalogo
 drawable ic_book_guruji
+string default_web_client_id

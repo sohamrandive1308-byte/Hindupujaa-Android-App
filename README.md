@@ -1,75 +1,118 @@
-# HinduPujaa - Divine Services App 🌼
+# HinduPujaa — Divine Services App 🌼
 
-**Version 2.0.0 — Neon Postgres & Independent Auth Edition**
-
-HinduPujaa is a production-grade Android application developed using **Kotlin**, **Jetpack Compose**, and a **RESTful Backend**. This version has been re-architected to remove Firebase dependencies, moving to a self-hosted API and Neon Postgres database for better cost control and scalability.
+**HinduPujaa** is a production-grade, multi-module Android application (v2.0.0) developed using **Kotlin**, **Jetpack Compose**, and **Neon PostgreSQL**. It bridges ancient Vedic traditions with modern on-demand delivery technology.
 
 ---
 
 ## 🚀 Vision
-**"Blinkit for Puja"** - Curated kits, real-time customization, online payments, and doorstep delivery within 24 hours.
+**"Blinkit for Puja"** — Real-time kit customization, online payments, and doorstep delivery within 24 hours.
 
 ---
 
-## 🛠 Tech Stack v2.0
-- **UI Framework:** Jetpack Compose (Material 3) with **Claymorphism v2**
-- **Architecture:** MVVM + Clean Architecture + Multi-Module
-- **Language:** Kotlin 2.0+
-- **Dependency Injection:** Hilt
-- **Backend:** Node.js/Express or Ktor (Self-hosted)
-- **Database:** Neon Serverless PostgreSQL
-- **Local Cache:** Room DB (Offline support)
-- **Authentication:** Custom Email/Pass (Bcrypt) + Google Sign-In + SMS OTP (2Factor.in)
-- **Storage:** Cloudflare R2 / Supabase Storage (S3 Compatible)
-- **Push:** OneSignal
-- **Payments:** Razorpay Android SDK
+## 🛠 Project Architecture (v2.0.0)
+The app has been re-architected from Firebase to a custom **REST API** backend to minimize recurring costs and improve data scalability.
+
+- **Architecture:** MVVM + Clean Architecture + Multi-Module Gradle.
+- **Backend:** Node.js (or Ktor) hosted on Render/Railway.
+- **Database:** Neon Serverless PostgreSQL.
+- **Local Cache:** Room DB (Full Offline Browsing support).
+- **Security:** EncryptedSharedPreferences for JWT session management.
+- **Push Notifications:** OneSignal (Unlimited free subscribers).
+- **Animations:** Claymorphism v2 + Canvas-based Invoice Unroll.
 
 ---
 
-## 📂 Project Structure
-- `:app`: Entry point, navigation, and Dagger Hilt setup.
-- `:core:ui`: Design system, themes (Saffron & Dark Red), **ClayComponents**, and **Custom Animations**.
-- `:core:domain`: Use-cases, repository interfaces, and relational data models.
-- `:core:data`: REST API integration (Ktor), Room Local DB, and repository implementations.
-- `:core:common`: Constants, extensions, and common utils.
+## 📂 Multi-Module Structure
+- `:app`: Entry point, Hilt setup, and `NavHost`.
+- `:core:ui`: Theme, `ClayComponents`, and shared animations.
+- `:core:domain`: Data models and Repository interfaces.
+- `:core:data`: Ktor Client (REST), Room Local DB, and Repository implementations.
 - `:feature:*`: Modularized features (Home, PujaDetail, KitBuilder, Store, Orders, Auth, Profile).
 
 ---
 
-## ✅ v2.0 Key Enhancements
-1. **REST Re-Architecture**: Ready to consume custom REST APIs instead of Firebase SDKs.
-2. **Offline Mode**: Room DB implemented to cache Pujas and Products for seamless browsing without internet.
-3. **Advanced UI**: Claymorphic cards with soft shadows and interactive bounce animations.
-4. **Independent Auth**: Support for Email, Google, and SMS OTP through our own backend.
-5. **Comprehensiveness**: All 13 pujas and 32 store products fully mapped to the new relational schema.
+## ⚙️ Setup & Environment Variables
+
+### 1. Android Configuration (`local.properties`)
+Create a `local.properties` file in the root directory (Git Ignored):
+```properties
+# Backend API URL
+API_BASE_URL=https://api.hindupujaa.com
+
+# Payment Keys
+RAZORPAY_KEY_ID_TEST=rzp_test_...
+RAZORPAY_KEY_ID_LIVE=rzp_live_...
+
+# Google Services (Get from Google Cloud Console)
+GOOGLE_OAUTH_CLIENT_ID=your_web_client_id.apps.googleusercontent.com
+GOOGLE_MAPS_API_KEY=your_android_maps_key
+
+# Push Notifications
+ONESIGNAL_APP_ID=your_onesignal_id
+```
+
+### 2. Backend Configuration (`.env`)
+The backend requires these keys for critical flows like WhatsApp confirmation:
+```bash
+DATABASE_URL=postgresql://user:pass@host.neon.tech/db
+JWT_SECRET=your_long_random_string
+WHATSAPP_API_TOKEN=meta_permanent_token
+OWNER_WHATSAPP_NUMBER=919175799251
+```
 
 ---
 
-## 🚧 Next Steps (Continuing the Project)
-If you are moving to another device, focus on these areas:
+## 🖼 Asset & Image Management
+The app uses **Cloudflare R2** (or Supabase) for high-res images. The backend stores public URLs.
 
-### 1. Backend Setup
-- [ ] **Deploy API**: Host the Node.js or Ktor backend on Render/Railway.
-- [ ] **Neon DB**: Create a project at `neon.tech` and run the Prisma migrations provided in the SRS.
-- [ ] **Environment**: Update `API_BASE_URL` in `local.properties`.
-
-### 2. Assets & Media
-- [ ] **R2 Upload**: Upload high-res images to Cloudflare R2 and update the URLs in Postgres.
-- [ ] **Lottie**: Ensure `puja_bell_ring.json` and `diya_success.json` are in the `raw` resource folder.
-
-### 3. Maps & SMS
-- [ ] **API Keys**: Add `GOOGLE_MAPS_API_KEY` and `ONESIGNAL_APP_ID` to `local.properties`.
-- [ ] **OTP Provider**: Register with `2Factor.in` and configure the key on the backend.
+| Folder | Naming Convention | Use Case |
+| :--- | :--- | :--- |
+| `pujas/hero/` | `satyanarayan-puja.png` | Detail screen top image |
+| `pujas/thumbnail/` | `satyanarayan-puja.png` | Home screen cards |
+| `store_products/` | `brass-diya.png` | Individual store items |
+| `res/raw/` | `puja_bell_ring.json` | Lottie success animations |
 
 ---
 
-## 🏃 How to Run
-1. **Sync Gradle**: Ensure Android Studio Koala is updated.
-2. **Local Properties**: Create `local.properties` with your respective API keys.
-3. **Build & Run**: Use the `:app` module.
+## 👩‍💻 Development Guide
+
+### Option A: Using Android Studio (Recommended)
+1. Install **Android Studio Koala (2024.1.2+)**.
+2. Open the project and wait for **Gradle Sync**.
+3. Place your `google-services.json` in the `app/` folder.
+4. Build and Run the `:app` module.
+
+### Option B: Using VS Code (For Testing/Light Development)
+If you do not have Android Studio installed:
+1. **Requirements**: 
+   - Install **JDK 17** (or 21).
+   - Install **Android SDK Platform-Tools**.
+   - Install VS Code Extensions: `Kotlin`, `Gradle for Java`.
+2. **Setup**:
+   - Create an Android Emulator via `avdmanager` or connect a physical phone.
+   - Set `ANDROID_HOME` environment variable to your SDK path.
+3. **Build & Install via Terminal**:
+   ```bash
+   # Clean build
+   ./gradlew clean
+   
+   # Assemble Debug APK
+   ./gradlew :app:assembleDebug
+   
+   # Install on connected device
+   ./gradlew installDebug
+   ```
+
+---
+
+## 🚧 Roadmap: Remaining Production Steps
+1. **Backend Deployment**: Host the provided Node.js/Ktor server and migrate the Neon DB schema.
+2. **Seeding**: Trigger the `FirebaseSeeder` (or SQL script) to populate the 13 pujas and 32 products.
+3. **Razorpay Webhooks**: Configure the webhook URL in the Razorpay dashboard to ensure WhatsApp messages send even if the app is closed.
+4. **App Check**: Enable **Play Integrity** in the Firebase/Google Console to secure your API endpoints.
 
 ---
 
 ## ॐ Shubh Puja ॐ
-Developed by **Sai Randive** (sairandivework@gmail.com)
- v2.0.0 | June 2026 | Confidential
+Designed & Developed for **Sai Randive** (sairandivework@gmail.com)
+*Confidential © 2026 HinduPujaa*

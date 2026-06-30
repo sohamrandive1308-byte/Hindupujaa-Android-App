@@ -6,18 +6,18 @@ import com.example.hindupujaa.core.domain.model.KitItem
 
 @Entity(tableName = "kit_items")
 data class KitItemEntity(
-    @PrimaryKey val id: String,
-    val pujaId: String,
-    val nameEn: String,
-    val nameMr: String,
-    val description: String,
-    val itemType: String,
-    val price: Double,
-    val isDefaultSelected: Boolean,
-    val isPerishable: Boolean,
-    val imagePath: String,
-    val sortOrder: Int,
-    val isActive: Boolean
+    @PrimaryKey val id: String = "",
+    val pujaId: String = "",
+    val nameEn: String = "",
+    val nameMr: String = "",
+    val description: String = "",
+    val itemType: String = "",
+    val price: Double = 0.0,
+    val isDefaultSelected: Boolean = false,
+    val isPerishable: Boolean = false,
+    val imagePath: String = "",
+    val sortOrder: Int = 0,
+    val isActive: Boolean = true
 )
 
 fun KitItemEntity.toDomain() = KitItem(
